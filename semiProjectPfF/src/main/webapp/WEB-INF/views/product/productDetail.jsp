@@ -430,7 +430,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 		<!-- 구매창 컨테이너 -->
 		<div class="left">
 			<!-- 구매창 왼쪽 사진 넣는 곳 -->
-			<img src="${contextPath}/resources/product_img/${p.productMainPic}.jpg">
+			<img src="${contextPath}/resources/product_img/${p.productMainPic}">
 		</div>
 		<div class="right">
 			<!-- 상품 정보 -->
@@ -545,8 +545,8 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	<div class="Infobox">
 		<!-- 제품 사진 및 소개 칸 -->
 		<div class="imgbox">
-			<img src="${contextPath}/resources/product_img/${p.productDetailPic1}.jpg"> <img src="${contextPath}/resources/product_img/${p.productDetailPic2}.jpg"> <img
-				src="${contextPath}/resources/product_img/${p.productDetailPic3}.jpg">
+			<img src="${contextPath}/resources/product_img/${p.productDetailPic1}"> <img src="${contextPath}/resources/product_img/${p.productDetailPic2}"> <img
+				src="${contextPath}/resources/product_img/${p.productDetailPic3}">
 		</div>
 		<br>
 		<div class="productInfo">

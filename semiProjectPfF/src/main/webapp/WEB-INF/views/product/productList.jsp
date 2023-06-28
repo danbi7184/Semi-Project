@@ -165,7 +165,7 @@
 		<c:forEach items="${ list }" var="p">
 			<div style="display: flex; flex-direction: column; align-items: center;">
             <a href="${contextPath}/productDetail/detail/${p.productNo}.pr" class="product">
-                <img src="${contextPath}/resources/product_img/${p.productMainPic}.jpg" width="225" height="225px">
+                <img src="${contextPath}/resources/product_img/${p.productMainPic}" width="225" height="225px">
                 <div class="product-name">
                     ${p.productName} 
                 </div>
