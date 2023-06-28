@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="reviewMapper" >
+
+
+<select id="selectReviewList" resultMap="reviewResultSet">
+	select *
+	from review join order_detail
+    using(order_no)
+    where review_status = 'Y' 
+</select>
+
+
+<resultMap type="Review" id="reviewResultSet">
+	<id column="REVIEW_NO" property="reviewNo"/>
+	<result column="REVIEW_TITLE" property="reviewTitle"/>
+	<result column="REVIEW_CONTENT" property="reviewContent"/>
+	<result column="REVIEW_DATE" property="reviewDate"/>
+	<result column="REVIEW_STATUS" property="reviewStatus"/>
+	<result column="REVIEW_WRITER" property="reviewWriter"/>
+	<result column="ORDER_NO" property="orderNo"/>
+</resultMap>
+
+
+<select id="insertBoardList" resultMap="reviewResultSet">
+	select *
+	from review
+    where  order_No = #{productNo} and review_status = 'Y'
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

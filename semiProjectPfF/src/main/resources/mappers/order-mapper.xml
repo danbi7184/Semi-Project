@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="orderMapper">
+	
+	<resultMap type="Order" id="orderResultSet">
+		<id column="ORDER_NO" property="orderNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="ORDER_PAY_TYPE" property="orderPayType"/>
+		<result column="ORDER_PRICE" property="orderPrice"/>
+		<result column="ORDER_USED_POINT" property="orderUsedPoint"/>
+		<result column="ORDER_EARN_POINT" property="orderEarnPoint"/>
+		<result column="ORDER_NAME" property="orderName"/>
+		<result column="ORDER_HOMEPHONE" property="orderHomePhone"/>
+		<result column="ORDER_PHONE" property="orderPhone"/>
+		<result column="ORDER_ADDRESS" property="orderAddress"/>
+		<result column="ORDER_MESSAGE" property="orderMessage"/>
+		<result column="ORDER_DATE" property="orderDate"/>
+	</resultMap>
+	
+	<resultMap type="OrderProduct" id="orderProductResultSet">
+		<id column="ORDER_PNO" property="orderPNo"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="DISCOUNT_RATE" property="discountRate"/>
+		<result column="ORDER_COUNT" property="count"/>
+		<result column="ORDER_SIZE" property="size"/>
+		<result column="ORDER_NO" property="orderNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="ORDER_PAY_TYPE" property="orderPayType"/>
+		<result column="ORDER_PRICE" property="orderPrice"/>
+		<result column="ORDER_ADDRESS" property="orderAddress"/>
+		<result column="ORDER_DATE" property="orderDate"/>
+		<result column="PRODUCT_MAINPIC" property="productMainPic"/>
+	</resultMap>
+	
+	<resultMap type="Coupon" id="couponResultSet">
+		<id column="COUPON_NO" property="couponNo"/>
+		<result column="MEMBER_NO" property="memberNo"/>
+		<result column="COUPON_NAME" property="couponName"/>
+		<result column="COUPON_PRICE" property="couponPrice"/>
+		<result column="COUPON_CREATE_DATE" property="couponCreateDate"/>
+		<result column="COUPON_EXPIRE_DATE" property="couponExpireDate"/>
+	</resultMap>
+	
+	<insert id="insertOrder">
+		insert into order_detail
+		values(${orderNo}, #{memberNo}, #{orderPayType}, #{orderPrice}, #{orderUsedPoint}, #{orderEarnPoint},
+		#{orderName}, #{orderHomePhone}, #{orderPhone}, #{orderAddress}, #{orderMessage}, default)
+	</insert>
+	
+	<insert id="insertOrderProduct">
+		insert all
+		<foreach collection="list" item="item">
+			into order_product
+			values(new_opid1, #{item.productNo}, #{item.count}, #{item.size}, #{item.orderNo})
+		</foreach>
+		select * from dual
+	</insert>
+	
+	<select id="selectOrder" resultMap="orderResultSet">
+		select * from order_detail where order_no = #{orderNo}
+		order by order_no
+	</select>
+	
+	<select id="selectOrderProduct" resultMap="orderProductResultSet">
+		select order_pno, product_no, product_name, product_price, discount_rate, order_count, order_size, order_no, member_no, order_pay_type, order_price, order_address, order_date, product_mainpic
+		from order_product
+			 join product using(product_no)
+			 join order_detail using(order_no)
+		where order_no = #{orderNo}	
+		order by order_pno 
+	</select>
+	
+	<!-- Admin -->
+	<select id="getOrderCount" resultType="_int">
+		select count(distinct order_no)
+		from order_detail
+			 join order_product using(order_no)
+			 join product using(product_no)
+		<where>
+			<if test="name != null and !name.equals('')">
+				product_name like '%' || #{ name } || '%'
+			</if>
+			<if test="address != null and !address.equals('')">
+				and order_address like '%' || #{ address } || '%'
+			</if>
+			<if test="startDate != null and !startDate.equals('')">
+				and <![CDATA[to_char(order_date, 'yyyy-mm-dd') >= #{startDate}]]>
+			</if>
+			<if test="endDate != null and !endDate.equals('')">
+				and <![CDATA[to_char(order_date, 'yyyy-mm-dd') <= #{endDate}]]>
+			</if>
+			<if test="payMethod != null and !payMethod.equals('')">
+				and order_pay_type = #{payMethod}
+			</if>
+		</where>
+	</select>
+	
+	<select id="selectAllOrder" resultType="object" >
+		select distinct order_no 
+		from order_detail
+			 join order_product using(order_no)
+			 join product using(product_no)
+		<where>
+			<if test="name != null and !name.equals('')">
+				product_name like '%' || #{ name } || '%'
+			</if>
+			<if test="address != null and !address.equals('')">
+				and order_address like '%' || #{ address } || '%'
+			</if>
+			<if test="startDate != null and !startDate.equals('')">
+				and <![CDATA[to_char(order_date, 'yyyy-mm-dd') >= #{startDate}]]>
+			</if>
+			<if test="endDate != null and !endDate.equals('')">
+				and <![CDATA[to_char(order_date, 'yyyy-mm-dd') <= #{endDate}]]>
+			</if>
+			<if test="payMethod != null and !payMethod.equals('')">
+				and order_pay_type = #{payMethod}
+			</if>
+		</where>
+		order by order_no
+	</select>
+	
+	<select id="selectAllOrderProduct" resultMap="orderProductResultSet">
+		select order_pno, product_no, product_name, product_price, discount_rate, order_count, order_size, order_no, member_no, order_pay_type, order_price, order_address, order_date -->
+		from order_detail
+			 join order_product using(order_no)
+			 join product using(product_no)
+		where order_no in
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		order by order_no, order_pno
+	</select>
+
+	<select id="selectCoupon" resultMap="couponResultSet">
+		select coupon_no, member_no, coupon_name, coupon_price, coupon_create_date, coupon_expire_date 
+		from coupon 
+    		 join coupon_type using(coupon_type_no)
+		where coupon_expire_date >= sysdate
+      		  and coupon_status = 'N'
+      		  and member_no = #{memNo}
+      	order by coupon_type_no
+	</select>
+	
+	<update id="useCoupon">
+		update coupon
+		set coupon_status = 'Y'
+		where coupon_no = #{couponNo}
+	</update>
+</mapper>

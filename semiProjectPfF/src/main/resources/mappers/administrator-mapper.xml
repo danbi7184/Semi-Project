@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="administratorMapper">
+	
+	<select id="selectNumPayer" resultType="Integer">
+		select count(distinct member_no) from order_detail 
+		where order_date >= #{oneMonthAgo}
+		group by order_date 
+		order by order_date
+	</select>
+
+	<select id="selectNumPay" resultType="Integer">
+		select count(order_no) 
+		from order_detail where order_date >= #{oneMonthAgo} 
+		group by order_date order by order_date
+	</select>
+
+	<select id="selectDate" resultType="date">
+		select distinct order_date from order_detail 
+		where order_date >= #{oneMonthAgo}
+		order by order_date
+	</select>
+	
+	<select id="selectSumPrice" resultType="Integer">
+		select sum(order_price) from order_detail group by order_date order by order_date
+	</select>
+
+	<select id="selectAvgPrice" resultType="Double">
+		SELECT TRUNC(AVG(order_price))
+		FROM order_detail
+		WHERE order_date >= TRUNC(sysdate) - 7
+		GROUP BY TRUNC(order_date)
+		ORDER BY TRUNC(order_date)
+	</select>
+
+	<select id="selectAmountPayDate" resultType="date">
+		select distinct order_date from order_detail order by order_date
+	</select>
+	
+	<select id="memberList" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		ORDER BY MEMBER_NO DESC
+	</select>
+	
+	<select id="memberSelectOne" resultMap="memberResultSet">
+		SELECT *
+		FROM MEMBER
+		WHERE MEMBER_ID = #{memberId}
+	</select>
+	
+		<update id="updateMember">
+			UPDATE MEMBER
+			SET
+			MEMBER_ADDRESS = #{memberAddress},
+			MEMBER_EMAIL = #{memberEmail},
+			MEMBER_PHONE = #{memberPhone},
+			MEMBER_GRADE = #{grade}
+			WHERE MEMBER_NO = #{memberNo}
+		</update>
+	
+	<update id="deleteMember">
+		UPDATE MEMBER
+		SET MEMBER_STATUS = #{memberStatus}
+		WHERE MEMBER_Id = #{memberId}
+	</update>
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_NO" property="memberNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickName"/>
+		<result column="MEMBER_AGE" property="memberAge"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_HOMEPHONE" property="memberHomePhone"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+		<result column="MEMBER_POINT" property="point"/>
+		<result column="PAY_AMOUNT" property="payAmount"/>
+		<result column="EVENT_AGREE" property="eventAgree"/>
+		<result column="MEMBER_GRADE" property="grade"/>
+		<result column="IS_ADMIN" property="admin"/>
+	</resultMap>
+	
+	<update id="deleteProduct">
+	update product set product_status = 'N' where product_no = #{productNo}
+	</update>
+
+<update id="updateProduct">
+	update product
+	set product_name = #{productName},
+		product_price = #{productPrice},
+		discount_rate = #{discountRate},
+		product_info = #{productInfo},
+		product_type = #{productType},
+		product_type_2 = #{productType2},
+		product_mainpic = #{productMainPic},
+		product_detailpic1 = #{productDetailPic1},
+		product_detailpic1 = #{productDetailPic2},
+		product_detailpic1 = #{productDetailPic3}
+	where product_No = #{productNo}
+
+</update>
+	
+<insert id="productInsert">
+	insert into product
+	values
+	(#{productNo}, #{productName}, #{productPrice}, sysdate, #{discountRate}, #{productInfo}, #{productType}, #{productType2}, 'Y', #{productMainPic}, #{productDetailPic1}, #{productDetailPic2}, #{productDetailPic3})
+</insert>
+	
+	
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+  <select id="getListCount" resultType="_int">
+  	select count(*)
+  	from notice
+  </select>
+  
+  <select id="selectNoticeList" resultMap="noticeResultSet">
+  	select *
+  	from notice
+  		 join member on(notice_writer = member_no)
+  	where is_admin = 'Y' and member_status = 'Y'
+  	order by notice_no desc	 
+  </select>
+  
+  <resultMap type="Notice" id="noticeResultSet">
+	  <id property="noticeNo" column="notice_no"/>
+	  <result property="noticeTitle" column="notice_title"/>
+	  <result property="noticeContent" column="notice_content"/>
+	  <result property="noticeCount" column="notice_count"/>
+	  <result property="noticeCreateDate" column="notice_create_date"/>
+	  <result property="noticeUpdateDate" column="notice_update_date"/>
+	  <result property="noticeWriter" column="member_nickname"/>
+  </resultMap>
+  
+  <select id="selectAttmBoardList" resultMap="attmResultSet">
+  	select *
+  	from picture 
+  	where picture_category = 3
+  	order by picture_no desc
+  </select>
+  
+  <resultMap type="Picture" id="attmResultSet">
+  	<id property="picture_no" column="pictureNo"/>
+  	<result property="picture_url" column="pictureUrl"/>
+  	<result property="origin_name" column="originName"/>
+  	<result property="new_name" column="newName"/>
+  	<result property="picture_category" column="pictureCategory"/>
+  	<result property="picture_ref_board_no" column="pictureRefBoardNo"/>
+  </resultMap>
+  
+</mapper>

@@ -1,0 +1,226 @@
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+:root {
+  /* font-size */
+  --font-large: 20px;
+  --font-medium-large: 13px;
+  --font-medium: 12px;
+  --font-medium-small: 11px;
+  --font-micro: 7px;
+
+  /* margin */
+  --margin-large: 75px;
+  --margin-medium-large: 40px;
+  --margin-medium: 20px;
+  --margin-small: 10px;
+  --margin-micro: 5px;
+
+  /* padding */
+  --padding-medium-large: 30px;
+  --padding-medium: 20px;
+  --padding-medium-small: 15px;
+  --padding-small: 10px;
+  --padding-micro: 2px;
+
+  /* input Width*/
+  --input-zipCode: 70px;
+  --input-address: 350px;
+  --input-select-phone: 50px;
+  --input-phone: 70px;
+  --input-email: 100px;
+}
+
+.b {
+  font-weight: bold;
+}
+
+.marginTopMediumLarge {
+  margin-top: var(--margin-medium-large);
+}
+
+.marginTopMedium {
+  margin-top: var(--margin-medium);
+}
+
+.marginTopSmall {
+  margin-top: var(--margin-small);
+}
+
+.marginTopMicro {
+  margin-top: var(--margin-micro);
+}
+
+.textRight {
+  text-align: right;
+}
+
+.borderTop {
+  border-top: 1px solid lightgray;
+}
+
+.price {
+  font-size: var(--font-large);
+}
+
+legend {
+  font-size: var(--font-medium);
+  font-weight: bold;
+  margin: 0;
+  margin-left: var(--margin-small);
+  margin-bottom: var(--margin-small);
+}
+
+#payment {
+  margin: var(--margin-large);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#pointInfo, #paymentCompleteMessage, #paymentInfo, #paymentItem, #paymentPrice, #paymentPoint, #paymentAdress, #buttonDiv, #descriptionDiv {
+  max-width: 1200px;
+  width: 100%;
+  font-size: var(--font-medium);
+}
+
+#pointInfo {
+  margin-bottom: var(--margin-medium);
+}
+
+#pointInfo table {
+  border: 1px solid lightgray;
+}
+
+#pointInfo tr {
+  padding: var(--padding-micro);
+}
+
+#pointInfo .pointInfoTd {
+  vertical-align: middle;
+  text-align: center;
+  font-weight: bold;
+  font-size: var(--font-medium-large);
+}
+
+#paymentCompleteMessage {
+  border: 1px solid lightgray;
+  padding: var(--padding-medium-large);
+  margin-top: var(--margin-small);
+}
+
+#paymentCompleteMessage div:first-child {
+  font-size: 15px;
+  font-weight: 450;
+  margin-bottom: var(--margin-small);
+}
+
+#paymentCompleteMessage div:nth-child(2) {
+  margin-bottom: var(--margin-medium);
+}
+
+#paymentCompleteMessage div:nth-child(2) a {
+  color: red;
+}
+
+#paymentInfo td {
+  padding: var(--padding-small) var(--padding-medium-small);
+}
+
+#paymentInfo td:first-child {
+  border-right: 1px solid lightgray;
+}
+
+#paymentTable {
+  text-align: center;
+  font-size: var(--font-medium);
+}
+
+#paymentTable td {
+  vertical-align: middle;
+}
+
+#paymentTable .itemName {
+  text-align: left;
+}
+
+#paymentTable .itemOption {
+  text-align: left;
+  color: gray;
+}
+
+#paymentTable .originalPrice {
+  text-decoration: line-through;
+}
+
+#paymentPrice table {
+  text-align: center;
+  border: 1px solid darkgray;
+}
+
+#paymentPrice tr:first-child {
+  background-color: #fafafa;
+  border-bottom: 1px solid lightgray;
+}
+
+#paymentPrice tr:first-child td {
+  padding: var(--padding-small);
+}
+
+#paymentPrice tr:nth-child(2) td {
+  padding: var(--padding-medium);
+}
+
+#paymentPoint td:first-child {
+  border-right: 1px solid lightgray;
+}
+
+#paymentPoint tr:first-child td:nth-child(2) {
+  background-color: #fafafa;
+}
+
+#paymentAdress td:first-child {
+  border-right: 1px solid lightgray;
+}
+
+#buttonDiv {
+  margin-top: var(--margin-medium-large);
+  display: flex;
+  justify-content: flex-end;
+}
+
+#buttonDiv .buttonDivBtn {
+  padding: var(--padding-small) var(--padding-medium-large);
+  border: 1px solid darkgray;
+  border-radius: 5%;  
+  font-weight: 450;
+  font-size: 15px;
+}
+
+#moreShopping {
+  background-color: white;
+}
+
+#checkOrder {
+  background-color: #556073;
+  color: white;
+  margin-left: 5px;
+}
+
+#descriptionDiv {
+  font-size: var(--font-medium);
+  border: 1px solid lightgray;
+  padding: var(--padding-medium-large) var(--padding-medium);
+  margin-top: 55px;
+}
+
+.descriptionContent {
+  color: darkgray;
+  margin-top: var(--margin-small);
+  margin-bottom: var(--margin-medium);
+}
+
+.descriptionContent:last-child {
+  margin-bottom: 0;
+}

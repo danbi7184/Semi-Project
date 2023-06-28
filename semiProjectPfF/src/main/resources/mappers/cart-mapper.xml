@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cartMapper">
+	<!-- 카트 추가 -->
+	<insert id="addCart">
+		INSERT INTO CART
+		VALUES (CART_SEQ.NEXTVAL, #{optionSize}, 'NONE', #{cartCount}, #{productNo}, #{memberNo})
+	</insert>
+	
+
+	<resultMap type="Cart" id="cartResultSet">
+		<id column="cart_no" property="cartNo"/>
+		<result column="option_size" property="optionSize"/>
+		<result column="option_color" property="optionColor"/>
+		<result column="cart_count" property="cartCount"/>
+		<result column="product_No" property="productNo"/>
+		<result column="memberNo" property="memberNo"/>
+		<result column="PRODUCT_NAME" property="productName"/>
+		<result column="PRODUCT_INFO" property="productInfo"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="PRODUCT_MAINPIC" property="productMainPic"/>
+		<result column="DISCOUNT_RATE" property="discountRate"/>
+	</resultMap>
+	
+	<select id="showCart" resultMap="cartResultSet">
+	SELECT c.*, p.PRODUCT_NAME, p.PRODUCT_INFO, p.PRODUCT_PRICE , p.PRODUCT_MAINPIC, p.DISCOUNT_RATE
+    FROM CART c
+    JOIN PRODUCT p ON c.product_No = p.product_No
+    WHERE c.member_No = #{memberNo}
+	</select>
+	
+	<delete id="deleteCart">
+		DELETE FROM CART
+		WHERE CART_NO = #{cartNo}
+	</delete>
+	
+	<delete id="deleteCartList">
+		delete from cart
+		where cart_no in
+		<foreach collection="array" item="arr" open="(" close=")" separator=",">
+		 #{arr}
+		</foreach>
+	</delete>
+</mapper>

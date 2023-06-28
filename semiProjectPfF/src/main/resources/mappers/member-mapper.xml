@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<select id="login" resultMap="memberResultSet">
+		select * 
+		from member 
+		join grade on (grade_no = member_grade)
+		where MEMBER_ID = #{ memberId } and member_status = 'Y'
+	</select>
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id column="MEMBER_NO" property="memberNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PWD" property="memberPwd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickName"/>
+		<result column="MEMBER_AGE" property="memberAge"/>
+		<result column="MEMBER_GENDER" property="memberGender"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="MEMBER_HOMEPHONE" property="memberHomePhone"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MEMBER_POINT" property="point"/>
+		<result column="PAY_AMOUNT" property="payAmount"/>
+		<result column="EVENT_AGREE" property="eventAgree"/>
+		<result column="GRADE_NAME" property="grade"/>
+		<result column="IS_ADMIN" property="admin"/>
+	</resultMap>
+	
+	<insert id="enroll">
+		insert into member values(MEM_SEQ.NEXTVAL, #{memberId}, #{memberPwd}, #{memberName}, #{memberNickName}, #{memberAge}, #{memberGender}, #{memberEmail}, #{memberHomePhone}, #{memberPhone}, #{memberAddress}, sysdate, default, default, default, #{eventAgree}, default, default)	
+	</insert>
+	
+	<select id="checkId" resultType="_int">
+		select count(*) from member where member_id = #{id}
+	</select>
+	
+	<select id="checkNickName" resultType="_int">
+		select count(*) from member where member_nickname = #{nickname}
+	</select>
+	
+	<select id="checkEmail" resultType="_int">
+		select count(*) from member where member_email = #{email}
+	</select>
+	
+	<select id="selectKakao" resultMap="kakaoResultSet">
+		select * from kakao_member join member using(member_no) where kakao_id = #{memberId} and member_status = 'Y'
+	</select>
+	
+	<resultMap type="KakaoMember" id="kakaoResultSet">
+		<id column="MEMBER_NO" property="memberNo"/>
+		<result column="KAKAO_ID" property="memberId"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICKNAME" property="memberNickName"/>
+		<result column="MEMBER_HOMEPHONE" property="memberHomePhone"/>
+		<result column="MEMBER_PHONE" property="memberPhone"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_EMAIL" property="memberEmail"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="MEMBER_POINT" property="point"/>
+		<result column="PAY_AMOUNT" property="payAmount"/>
+		<result column="MEMBER_GRADE" property="grade"/>
+		<result column="IS_ADMIN" property="admin"/>
+		<result column="MEMBER_STATUS" property="memberStatus"/>
+	</resultMap>
+	
+	<insert id="enrollKakao">
+		INSERT ALL
+  		INTO member VALUES (MEM_SEQ.NEXTVAL, NULL, NULL, NULL, #{memberNickName}, NULL, NULL, NULL, NULL, NULL, NULL, SYSDATE, DEFAULT, DEFAULT, DEFAULT, 'N', DEFAULT, DEFAULT)
+ 	 	INTO kakao_member VALUES (MEM_SEQ.CURRVAL, #{memberId})
+		SELECT 1 FROM DUAL
+	</insert>
+	
+	<select id="findIdResult" resultType="String">
+		select member_id
+		from member
+		where MEMBER_EMAIL = #{memberEmail} and member_status = 'Y'
+	</select>
+	
+	<select id="findPwdResult" resultType="_int">
+		select count(*)
+		from member
+		where MEMBER_EMAIL = #{memberEmail} and MEMBER_ID = #{memberId} and member_status = 'Y'
+	</select>
+	
+	<update id="updatePw">
+		update member set
+		member_pwd=#{newPwd}
+		where member_id=#{memberId}
+	</update>
+	
+	<update id="updateMyInfoNickName">
+		update member set
+		member_nickname = #{memberNickName}
+		where member_id= #{memberId}
+	</update>
+
+	<update id="updateMyInfoEmail">
+		update member set
+		member_email = #{memberEmail}
+		where member_id= #{memberId}
+	</update>	
+	
+	<select id="selectMyList" resultMap="memberResultSet">
+		select *
+		from member
+		where member_id = #{memberId}
+	</select>
+	
+	<update id="deleteLeaveMember">
+		update member
+		set member_status = 'N'
+		where member_id = #{id}
+	</update>	
+	
+	<select id="checkNickname" resultType="_int">
+		select count(*)
+		from member
+		where member_nickname=#{nickName}
+	</select>
+	
+	<update id="updateKakaoInfo">
+		update member
+		set member_name = #{memberName},
+			member_email = #{memberEmail},
+			member_phone = #{memberPhone},
+			member_address = #{memberAddress}
+		where member_no = #{memberNo}
+	</update>
+</mapper>

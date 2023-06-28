@@ -1,0 +1,317 @@
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+:root {
+  /* font-size */
+  --font-large: 20px;
+  --font-medium-large: 13px;
+  --font-medium: 12px;
+  --font-medium-small: 11px;
+  --font-micro: 7px;
+
+  /* margin */
+  --margin-large: 75px;
+  --margin-medium-large: 40px;
+  --margin-medium: 20px;
+  --margin-small: 10px;
+  --margin-micro: 5px;
+
+  /* padding */
+  --padding-medium-large: 30px;
+  --padding-medium: 20px;
+  --padding-medium-small: 15px;
+  --padding-small: 10px;
+  --padding-micro: 2px;
+
+  /* input Width*/
+  --input-zipCode: 70px;
+  --input-address: 350px;
+  --input-select-phone: 50px;
+  --input-phone: 70px;
+  --input-email: 100px;
+}
+
+.b {
+  font-weight: bold;
+}
+
+.price {
+  font-size: var(--font-large);
+}
+
+.textRight {
+  text-align: right;
+}
+
+.marginTopMediumLarge {
+  margin-top: var(--margin-medium-large);
+}
+
+.marginTopMedium {
+  margin-top: var(--margin-medium);
+}
+
+.marginTopSmall {
+  margin-top: var(--margin-small);
+}
+
+.marginTopMicro {
+  margin-top: var(--margin-micro);
+}
+
+.priceRed {
+  color: red;
+}
+
+.inputZipCode {
+  width: var(--input-zipCode);
+}
+
+.inputAddress {
+  width: var(--input-address);
+}
+
+.verticalCenter {
+	vertical-align: middle;
+}
+
+.inputSelect {
+  width: var(--input-select-phone);
+  padding: var(--padding-micro);
+}
+
+.inputPhone {
+  width: var(--input-phone)
+}
+
+.inputEmail {
+  width: var(--input-email);
+  padding: var(--padding-micro);
+}
+
+#usePoint, #useCouponInput {
+  width: 80px;
+}
+
+#useAllPoint, #useCoupon {
+  font-size: var(--font-medium);
+  background: white;
+  border: 1px solid gray;
+  padding: 2px;
+}
+
+#deliveryMessage {
+  padding: 5px;
+  font-size: var(--font-medium);
+  width: 300px;
+  border: 1px solid gray;
+  border-top: none;
+}
+
+#payment {
+  margin: var(--margin-large);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#pointInfo, #paymentItem, #paymentInfo, #paymentPrice, #paymentType, #descriptionDiv {
+  max-width: 1200px;
+  width: 100%;
+  font-size: var(--font-medium);
+}
+
+#pointInfo {
+  margin-bottom: var(--margin-medium);
+}
+
+#pointInfo table {
+  border: 1px solid lightgray;
+}
+
+#pointInfo tr {
+  padding: var(--padding-micro);
+}
+
+#pointInfo .pointInfoTd {
+  vertical-align: middle;
+  text-align: center;
+  font-weight: bold;
+  font-size: var(--font-medium-large);
+}
+
+#backBtn::before {
+  content: '< ';
+  font-weight: bold;
+}
+
+#backBtn {
+  font-size: var(--font-medium-small);
+  background-color: white;
+  border: none;
+  width: 90px;
+  align-self: flex-start;
+}
+
+#paymentTable {
+  text-align: center;
+  font-size: var(--font-medium);
+}
+
+#paymentTable td {
+  vertical-align: middle;
+}
+
+.pointBtn {
+  background-color: plum;
+  color: white;
+  border-radius: 30%;
+  font-size: var(--font-micro);
+  padding: 1px;
+}
+
+#paymentTable .itemName {
+  text-align: left;
+}
+
+#paymentTable .itemOption {
+  text-align: left;
+  color: gray;
+}
+
+#paymentTable .originalPrice {
+  text-decoration: line-through;
+}
+
+#paymentItem .changeInfo {
+  color: red;
+  font-size: var(--font-medium-small);
+}
+
+#paymentInfo .requiredInfo::before {
+  content: '* ';
+  color: red;
+  font-weight: bold;
+  font-size: var(--font-large);
+  vertical-align: middle;
+}
+
+#paymentInfo .requiredInfo {
+  text-align: right;
+  font-weight: 300;
+  font-size: var(--font-medium-small);
+}
+
+#paymentInfo .required::after {
+  content: ' *';
+  color: red;
+  font-weight: bold;
+  font-size: var(--font-large);
+  vertical-align: middle;
+}
+
+#paymentInfo td {
+  padding: var(--padding-small);
+}
+
+#paymentInfo td:first-child {
+  border-right: 1px solid lightgray;
+}
+
+#paymentInfo .zipCode {
+  margin-left: var(--margin-micro);
+  vertical-align: bottom;
+  font-size: var(--font-medium-small);
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: var(--padding-micro);
+}
+
+#paymentInfo .zipCode::after {
+  content: ' >';
+  color: red;
+  font-weight: bold;
+}
+
+#paymentInfo .addressInfo {
+  margin-left: var(--margin-micro);
+  font-size: var(--font-medium-small);
+  color: gray;
+}
+
+#paymentInfo input[type=radio] {
+  vertical-align: middle;
+  margin-right: var(--margin-micro);
+}
+
+#newAddress {
+  margin-left: var(--margin-medium);
+}
+
+#paymentPrice {
+  margin: var(--margin-medium);
+}
+
+#paymentInfo td {
+  padding: var(--padding-small);
+}
+
+#paymentPrice .priceInfo {
+  text-align: center;
+  padding: var(--padding-medium);
+}
+
+#paymentPrice .paymentPriceTdBorder{
+  border-right: 1px solid lightgray;
+}
+
+#paymentType td {
+  border: 1px solid lightgray;
+}
+
+#paymentType input[type=radio] {
+  vertical-align: middle;
+  margin: 0 var(--margin-micro);
+}
+
+#paymentType label {
+  margin-right: var(--margin-medium-large);
+  font-weight: bold;
+}
+
+.finalPrice {
+  font-size: 25px;
+}
+
+#payBtn {
+  background-color: black;
+  color: white;
+  border: none;
+  width: 100%;
+  padding: var(--padding-medium-small);
+}
+
+.finalPointInfo {
+  margin-left: var(--margin-micro);
+}
+
+.finalPoint {
+  float: right;
+}
+
+#descriptionDiv {
+  font-size: var(--font-medium);
+  border: 1px solid lightgray;
+  padding: var(--padding-medium-large) var(--padding-medium);
+}
+
+.descriptionContent {
+  color: darkgray;
+  margin-top: var(--margin-small);
+  margin-bottom: var(--margin-medium);
+}
+
+.descriptionContent:last-child {
+  margin-bottom: 0;
+}
