@@ -87,7 +87,7 @@
 							<c:set var="pointSum" value="${ pointSum + point }" scope="page" />
 							
 							<tr>
-								<td width="15%"><img src="${contextPath}/resources/product_img/${product.productMainPic}.jpg" alt="상품 사진" width="80px"></td>
+								<td width="15%"><img src="${contextPath}/resources/product_img/${product.productMainPic}" alt="상품 사진" width="80px"></td>
 								<td width="20%">
 									<div class="itemName">${ product.productName }</div> 
 									<div class="itemOption marginTopMicro">[옵션: ${ product.size }]<br/>
